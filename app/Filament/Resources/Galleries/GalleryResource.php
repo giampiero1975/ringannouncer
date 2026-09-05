@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Galleries;
 use App\Filament\Resources\Galleries\Pages\CreateGallery;
 use App\Filament\Resources\Galleries\Pages\EditGallery;
 use App\Filament\Resources\Galleries\Pages\ListGalleries;
+use App\Filament\Resources\Galleries\RelationManagers\MediaRelationManager;
 use App\Models\Gallery;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\TextInput;
@@ -50,6 +51,13 @@ class GalleryResource extends Resource
             IconColumn::make('is_published')->label('Pubblicata')->boolean(),
             TextColumn::make('legacy_drupal_id')->label('Drupal')->toggleable(isToggledHiddenByDefault: true),
         ])->defaultSort('published_at', 'desc');
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            MediaRelationManager::class,
+        ];
     }
 
     public static function getPages(): array

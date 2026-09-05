@@ -1,74 +1,43 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RingAnnouncer</title>
-    <meta name="description" content="RingAnnouncer - eventi, gallery, video e curiosità dal mondo del ring.">
-    <style>
-        :root{--bg:#090909;--panel:#121212;--gold:#d4af37;--gold2:#f2d675;--text:#f7f4eb;--muted:#a7a7a7;--line:rgba(212,175,55,.22)}
-        *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;line-height:1.5}a{color:inherit;text-decoration:none}
-        .nav{position:sticky;top:0;z-index:30;display:flex;justify-content:space-between;align-items:center;padding:18px 5vw;background:rgba(9,9,9,.86);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
-        .brand{font-weight:900;letter-spacing:.14em}.brand span{color:var(--gold)}.navlinks{display:flex;gap:24px;color:#ddd;font-size:.92rem}.navlinks a:hover{color:var(--gold2)}
-        .hero{min-height:78vh;display:grid;place-items:center;padding:80px 5vw 50px;background:radial-gradient(circle at 70% 30%,rgba(212,175,55,.12),transparent 35%),linear-gradient(180deg,#090909,#0d0d0d)}
-        .hero-inner{width:min(1200px,100%);display:grid;grid-template-columns:1.2fr .8fr;gap:60px;align-items:center}.eyebrow{color:var(--gold2);text-transform:uppercase;letter-spacing:.28em;font-size:.78rem}.hero h1{font-size:clamp(3.6rem,8vw,8rem);line-height:.9;margin:16px 0 24px;letter-spacing:-.05em}.hero h1 span{display:block;color:var(--gold)}.lead{font-size:1.15rem;color:#c9c9c9;max-width:650px}.cta{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap}.btn{padding:13px 20px;border:1px solid var(--gold);border-radius:999px;font-weight:800}.btn.primary{background:var(--gold);color:#111}.btn:hover{transform:translateY(-1px)}
-        .hero-card{border:1px solid var(--line);background:linear-gradient(145deg,rgba(255,255,255,.03),rgba(255,255,255,.01));padding:26px;border-radius:28px;box-shadow:0 30px 80px rgba(0,0,0,.35)}.hero-card .big{font-size:4rem;font-weight:900;color:var(--gold)}
-        section{padding:88px 5vw}.wrap{width:min(1200px,100%);margin:auto}.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:32px}.section-head h2{font-size:clamp(2rem,4vw,4rem);margin:0}.section-head p{max-width:520px;color:var(--muted)}
-        .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:var(--panel);border:1px solid rgba(255,255,255,.07);border-radius:22px;padding:22px;transition:.25s}.card:hover{border-color:var(--gold);transform:translateY(-3px)}.meta{color:var(--gold2);font-size:.82rem;text-transform:uppercase;letter-spacing:.1em}.card h3{margin:10px 0 8px;font-size:1.25rem}.muted{color:var(--muted)}
-        .light{background:#f3f0e7;color:#111}.light .card{background:white;border-color:#ddd}.light .muted{color:#666}.light .meta{color:#8a6a00}
-        .video-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}.video{aspect-ratio:16/9;border-radius:22px;overflow:hidden;border:1px solid var(--line);background:#000}.video iframe{width:100%;height:100%;border:0}
-        .socials{display:flex;flex-wrap:wrap;gap:12px}.social{padding:10px 16px;border:1px solid var(--line);border-radius:999px}.social:hover{background:var(--gold);color:#111}
-        footer{padding:40px 5vw;border-top:1px solid var(--line);color:#888}.footer-in{width:min(1200px,100%);margin:auto;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-        @media(max-width:900px){.hero-inner{grid-template-columns:1fr}.hero-card{display:none}.grid,.video-grid{grid-template-columns:1fr}.navlinks{display:none}.hero{min-height:68vh}}
-    </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RingAnnouncer — Valerio</title>
+<meta name="description" content="RingAnnouncer Valerio — eventi, gallery, video e storie dal mondo del ring.">
+<style>
+:root{--ink:#0b0b0b;--paper:#f4f0e8;--gold:#b88a38;--gold2:#d9b56c;--line:rgba(184,138,56,.42);--muted:#716b62}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:#111;font-family:Arial,Helvetica,sans-serif}a{text-decoration:none;color:inherit}.serif{font-family:Georgia,'Times New Roman',serif}.wrap{width:min(1440px,92vw);margin:auto}.eyebrow{letter-spacing:.34em;text-transform:uppercase;font-size:.72rem;color:var(--gold);font-weight:700}.nav{height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 4vw;background:rgba(244,240,232,.95);position:sticky;top:0;z-index:50;border-bottom:1px solid #ded8cc}.brand{font-weight:900;letter-spacing:.05em;font-size:1.35rem}.brand span{color:var(--gold)}.navlinks{display:flex;gap:30px;font-size:.78rem;font-weight:700}.navlinks a:first-child{color:var(--gold)}.nav-cta{padding:14px 22px;background:var(--gold);color:white;font-size:.75rem;font-weight:800}
+.hero{min-height:680px;background:linear-gradient(90deg,rgba(244,240,232,.98) 0 38%,rgba(244,240,232,.82) 50%,rgba(0,0,0,.2) 72%),linear-gradient(135deg,#d8d1c5,#7f766b);position:relative;overflow:hidden}.hero.has-image{background-size:cover;background-position:center}.hero-inner{min-height:680px;display:grid;grid-template-columns:46% 54%;align-items:center}.hero-copy{padding:70px 0 70px 2vw;position:relative;z-index:2}.hero h1{font-family:Georgia,'Times New Roman',serif;font-weight:500;font-size:clamp(4rem,7vw,7.2rem);line-height:.86;margin:18px 0 24px;letter-spacing:-.04em}.hero h1 .gold{display:block;color:var(--gold)}.hero p{font-family:Georgia,'Times New Roman',serif;font-size:1.15rem;line-height:1.5;max-width:450px}.hero-actions{display:flex;gap:18px;margin-top:32px}.btn{display:inline-flex;align-items:center;gap:16px;padding:15px 22px;border:1px solid #111;font-size:.78rem;font-weight:800}.btn.gold{background:var(--gold);border-color:var(--gold);color:white}.signature{position:absolute;right:6vw;bottom:58px;color:white;text-align:right;text-shadow:0 2px 18px #000}.signature .name{font:italic 3.8rem Georgia,serif;color:var(--gold2)}.signature small{letter-spacing:.35em;text-transform:uppercase}
+.events{padding:62px 0 70px;background:#f7f4ed}.section-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}.section-title h2{font:700 2rem Georgia,serif;margin:0}.section-title h2:before{content:'';display:inline-block;width:52px;height:2px;background:var(--gold);vertical-align:middle;margin-right:18px}.events-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.event-card{background:white;border:1px solid #ddd7cb}.event-visual{height:180px;background:linear-gradient(135deg,#1d1d1d,#555);position:relative;overflow:hidden}.event-visual img{width:100%;height:100%;object-fit:cover;filter:saturate(.8) contrast(1.05)}.datebox{position:absolute;top:0;left:0;background:#111;color:white;padding:12px 14px;text-align:center;font-weight:900}.datebox strong{display:block;font-size:1.6rem}.event-body{padding:18px}.event-body h3{margin:0 0 12px;font-size:1rem;text-transform:uppercase}.event-body p{margin:4px 0;color:#555;font-size:.85rem}
+.gallery-sec{background:#0b0d0f;color:white;padding:70px 0}.gallery-layout{display:grid;grid-template-columns:28% 44% 28%;gap:14px;align-items:stretch}.gallery-copy{padding:30px 12px}.gallery-copy h2{font:500 3.2rem/1 Georgia,serif;margin:14px 0}.gallery-copy p{color:#c8c5bf;line-height:1.6}.gallery-main,.gallery-small{background:#1b1b1b;min-height:390px;overflow:hidden;border:1px solid var(--line)}.gallery-main img,.gallery-small img{width:100%;height:100%;object-fit:cover}.gallery-stack{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:8px}.gallery-small{min-height:190px}.placeholder{display:grid;place-items:center;height:100%;color:#8f8f8f;background:radial-gradient(circle at 50% 30%,#393939,#151515)}
+.bio{background:#f3efe7;padding:0}.bio-grid{display:grid;grid-template-columns:36% 34% 30%;min-height:390px}.bio-copy{padding:60px 4vw}.bio-copy h2{font:500 3.1rem Georgia,serif;margin:12px 0}.bio-copy p{font:1.05rem Georgia,serif;line-height:1.6}.bio-photo{background:linear-gradient(135deg,#c8c0b3,#70685d);overflow:hidden}.bio-photo img{width:100%;height:100%;object-fit:cover}.bio-quote{padding:58px 4vw;background:#eee8dd;display:flex;flex-direction:column;justify-content:center}.bio-quote blockquote{font:italic 1.4rem/1.5 Georgia,serif;margin:0}.stats{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:34px}.stat strong{display:block;font-size:1.5rem;color:var(--gold)}.stat span{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em}
+.video-sec{padding:70px 0;background:white}.video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.video{aspect-ratio:16/9;background:#111}.video iframe{width:100%;height:100%;border:0}.social-band{padding:46px 0;background:linear-gradient(90deg,#151719,#2c2c2c);color:white;text-align:center}.social-band h2{font:700 2rem Georgia,serif;margin:0 0 8px}.socials{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:20px}.social{border:1px solid var(--gold);padding:10px 16px;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em}.footer{padding:36px 4vw;background:#f3efe7;border-top:1px solid #d8d0c2}.footer-in{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}.footer nav{display:flex;gap:24px;font-size:.75rem;font-weight:700}
+@media(max-width:1000px){.navlinks{display:none}.hero{background:linear-gradient(180deg,#f3efe7 0 58%,#222 58%)}.hero-inner{grid-template-columns:1fr;min-height:auto}.hero-copy{padding:70px 3vw 280px}.signature{display:none}.events-grid{grid-template-columns:1fr 1fr}.gallery-layout,.bio-grid{grid-template-columns:1fr}.gallery-stack{grid-template-columns:1fr 1fr}.video-grid{grid-template-columns:1fr}.bio-photo{min-height:400px}}@media(max-width:640px){.events-grid{grid-template-columns:1fr}.hero h1{font-size:3.6rem}.hero-actions{flex-direction:column;align-items:flex-start}.gallery-stack{grid-template-columns:1fr}.nav-cta{display:none}}
+</style>
 </head>
 <body>
-<nav class="nav"><div class="brand">RING<span>ANNOUNCER</span></div><div class="navlinks"><a href="#eventi">Eventi</a><a href="#curiosita">Curiosità</a><a href="#gallery">Gallery</a><a href="#video">Video</a></div></nav>
+<nav class="nav"><div class="brand"><span>RING</span>ANNOUNCER <small style="font-size:.55em;letter-spacing:.35em">VALERIO</small></div><div class="navlinks"><a href="#home">HOME</a><a href="#eventi">EVENTI</a><a href="#gallery">GALLERY</a><a href="#bio">BIOGRAFIA</a><a href="#media">MEDIA</a><a href="#contatti">CONTATTI</a></div><a class="nav-cta" href="#eventi">PROSSIMI EVENTI →</a></nav>
 
-<header class="hero">
-    <div class="hero-inner">
-        <div>
-            <div class="eyebrow">Voice of the ring</div>
-            <h1>THE RING <span>ANNOUNCER</span></h1>
-            <p class="lead">Una presenza, una voce, un archivio di eventi e storie dal mondo del ring. Il nuovo sito parte da tutto il patrimonio storico già pubblicato e lo porta in una veste più forte, moderna e visiva.</p>
-            <div class="cta"><a class="btn primary" href="#eventi">Prossimi eventi</a><a class="btn" href="#gallery">Esplora la gallery</a></div>
-        </div>
-        <div class="hero-card">
-            <div class="meta">Archivio storico preservato</div>
-            <div class="big">{{ \App\Models\Event::count() }}</div>
-            <div class="muted">eventi migrati e pronti per il nuovo sito</div>
-        </div>
-    </div>
-</header>
+@php($heroUrl = $heroMedia?->file_path ? asset($heroMedia->file_path) : null)
+<header id="home" class="hero {{ $heroUrl ? 'has-image' : '' }}" @if($heroUrl) style="background-image:linear-gradient(90deg,rgba(244,240,232,.98) 0 38%,rgba(244,240,232,.75) 52%,rgba(0,0,0,.18) 74%),url('{{ $heroUrl }}')" @endif>
+<div class="wrap hero-inner"><div class="hero-copy"><div class="eyebrow">SPORT · PASSIONE · EMOZIONI</div><h1>IL RING<br>HA SEMPRE<span class="gold">UNA STORIA</span></h1><p>Eventi, persone, emozioni. Una voce che dà valore a ogni grande momento.</p><div class="hero-actions"><a class="btn gold" href="#eventi">SCOPRI GLI EVENTI →</a><a class="btn" href="#media">▶ GUARDA IL VIDEO</a></div></div></div><div class="signature"><div class="name">Valerio</div><small>same sport · different emotions</small></div></header>
 
-<section id="eventi"><div class="wrap"><div class="section-head"><div><div class="eyebrow">Calendario</div><h2>Prossimi eventi</h2></div><p>Qui compariranno solo gli appuntamenti futuri, gestiti dal pannello admin.</p></div><div class="grid">
+<section class="events" id="eventi"><div class="wrap"><div class="section-title"><h2>PROSSIMI EVENTI</h2><span class="eyebrow">VAI AL CALENDARIO →</span></div><div class="events-grid">
 @forelse($upcomingEvents as $event)
-<div class="card"><div class="meta">{{ optional($event->event_date)->format('d M Y') }}</div><h3>{{ $event->title }}</h3><div class="muted">{{ $event->city ?: $event->venue ?: 'Dettagli in aggiornamento' }}</div></div>
+<article class="event-card"><div class="event-visual">@if($event->cover_image)<img src="{{ asset($event->cover_image) }}" alt="{{ $event->title }}">@endif<div class="datebox"><strong>{{ optional($event->event_date)->format('d') }}</strong>{{ strtoupper(optional($event->event_date)->translatedFormat('M')) }}</div></div><div class="event-body"><h3>{{ $event->title }}</h3><p>⌖ {{ $event->venue ?: $event->city ?: 'Location da definire' }}</p><p>{{ $event->weight_category ?: 'Evento sportivo' }}</p></div></article>
 @empty
-<div class="card"><div class="meta">Calendario</div><h3>Nessun evento futuro inserito</h3><div class="muted">Appena Valerio inserirà il prossimo appuntamento, comparirà qui automaticamente.</div></div>
+@foreach($recentEvents as $event)<article class="event-card"><div class="event-visual"><div class="datebox"><strong>{{ optional($event->event_date)->format('d') }}</strong>{{ strtoupper(optional($event->event_date)->translatedFormat('M')) }}</div></div><div class="event-body"><h3>{{ $event->title }}</h3><p>Archivio storico</p><p>{{ $event->city ?: $event->venue ?: 'RingAnnouncer' }}</p></div></article>@endforeach
 @endforelse
 </div></div></section>
 
-<section class="light" id="curiosita"><div class="wrap"><div class="section-head"><div><div class="eyebrow">Archivio editoriale</div><h2>Curiosità</h2></div><p>I contenuti storici caricati negli anni restano disponibili e possono essere valorizzati in una nuova forma editoriale.</p></div><div class="grid">
-@foreach($articles as $article)
-<div class="card"><div class="meta">{{ optional($article->published_at)->format('d/m/Y') }}</div><h3>{{ $article->title }}</h3><div class="muted">{{ \Illuminate\Support\Str::limit(strip_tags($article->content), 140) }}</div></div>
-@endforeach
-</div></div></section>
+<section class="gallery-sec" id="gallery"><div class="wrap gallery-layout"><div class="gallery-copy"><div class="eyebrow">GALLERY</div><h2>MOMENTI<br>CHE RESTANO</h2><p>Immagini, backstage ed emozioni da dentro e fuori dal ring.</p><a class="btn gold" href="#gallery">VAI ALLA GALLERY →</a></div>
+@php($firstGallery = $galleries->first())
+<div class="gallery-main">@if($firstGallery?->media?->first())<img src="{{ asset($firstGallery->media->first()->file_path) }}" alt="RingAnnouncer gallery">@else<div class="placeholder">Gallery principale</div>@endif</div>
+<div class="gallery-stack">@for($i=1;$i<5;$i++)<div class="gallery-small">@if($firstGallery?->media?->get($i))<img src="{{ asset($firstGallery->media->get($i)->file_path) }}" alt="Gallery RingAnnouncer">@else<div class="placeholder">Ring</div>@endif</div>@endfor</div></div></section>
 
-<section id="gallery"><div class="wrap"><div class="section-head"><div><div class="eyebrow">Immagini</div><h2>Gallery</h2></div><p>Le gallery legacy sono state migrate. Le fotografie migliori potranno poi essere sostituite con una selezione nuova ad alta qualità.</p></div><div class="grid">
-@foreach($galleries as $gallery)
-<div class="card"><div class="meta">{{ $gallery->media_count }} foto</div><h3>{{ $gallery->title }}</h3><div class="muted">{{ $gallery->description ?: 'Archivio fotografico RingAnnouncer' }}</div></div>
-@endforeach
-</div></div></section>
+<section class="bio" id="bio"><div class="bio-grid"><div class="bio-copy"><div class="eyebrow">BIOGRAFIA</div><h2>VALERIO</h2><p>Ring announcer, speaker e presentatore specializzato in eventi di boxe, kickboxing, muay thai e MMA. Una passione per lo sport da sempre, una voce al servizio delle emozioni.</p><a class="btn" href="#curiosita">SCOPRI DI PIÙ →</a></div><div class="bio-photo">@if($heroUrl)<img src="{{ $heroUrl }}" alt="Valerio RingAnnouncer">@endif</div><div class="bio-quote"><blockquote>“Lo sport è disciplina, rispetto e passione. Il mio compito è dare voce a tutto questo.”</blockquote><div class="stats"><div class="stat"><strong>{{ $eventCount }}+</strong><span>eventi in archivio</span></div><div class="stat"><strong>{{ $galleries->sum('media_count') }}+</strong><span>foto migrate</span></div><div class="stat"><strong>{{ $videos->count() }}+</strong><span>video online</span></div><div class="stat"><strong>1</strong><span>grande passione</span></div></div></div></div></section>
 
-<section id="video" class="light"><div class="wrap"><div class="section-head"><div><div class="eyebrow">YouTube</div><h2>Video dal ring</h2></div><p>I video storici sono già stati normalizzati dal vecchio Drupal e possono essere gestiti singolarmente.</p></div><div class="video-grid">
-@foreach($videos as $video)
-<div class="video"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/{{ $video->youtube_id }}" title="{{ $video->title }}" allowfullscreen></iframe></div>
-@endforeach
-</div></div></section>
+<section class="video-sec" id="media"><div class="wrap"><div class="section-title"><h2>MEDIA</h2><span class="eyebrow">VIDEO DAL RING</span></div><div class="video-grid">@foreach($videos as $video)<div class="video"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/{{ $video->youtube_id }}" title="{{ $video->title }}" allowfullscreen></iframe></div>@endforeach</div></div></section>
 
-<section><div class="wrap"><div class="section-head"><div><div class="eyebrow">Seguimi</div><h2>Social & Partner</h2></div></div><div class="socials">@foreach($socialLinks as $social)<a class="social" href="{{ $social->url }}" target="_blank" rel="noopener">{{ ucfirst($social->platform) }}{{ $social->username ? ' · '.$social->username : '' }}</a>@endforeach</div></div></section>
-
-<footer><div class="footer-in"><strong>RINGANNOUNCER</strong><span>Nuovo progetto Laravel · nero / bianco / oro</span></div></footer>
-</body>
-</html>
+<section class="social-band" id="contatti"><div class="wrap"><h2>SEGUIMI SUI SOCIAL</h2><div class="eyebrow">DIETRO LE QUINTE, SEMPRE CON VOI</div><div class="socials">@foreach($socialLinks as $social)<a class="social" href="{{ $social->url }}" target="_blank" rel="noopener">{{ strtoupper($social->platform) }}</a>@endforeach</div></div></section>
+<footer class="footer"><div class="footer-in"><div class="brand"><span>RING</span>ANNOUNCER <small style="font-size:.55em;letter-spacing:.35em">VALERIO</small></div><nav><a href="#home">HOME</a><a href="#eventi">EVENTI</a><a href="#gallery">GALLERY</a><a href="#bio">BIOGRAFIA</a><a href="#media">MEDIA</a></nav><span style="font-size:.75rem;color:#766e63">Passione. Ring. Persone.</span></div></footer>
+</body></html>

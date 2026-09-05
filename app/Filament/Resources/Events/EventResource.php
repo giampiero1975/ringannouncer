@@ -11,6 +11,7 @@ use App\Models\Event;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class EventResource extends Resource
 {
@@ -24,7 +25,7 @@ class EventResource extends Resource
 
     protected static ?string $pluralModelLabel = 'eventi';
 
-    protected static ?string $navigationGroup = 'Contenuti';
+    protected static string|UnitEnum|null $navigationGroup = 'Contenuti';
 
     public static function form(Schema $schema): Schema
     {

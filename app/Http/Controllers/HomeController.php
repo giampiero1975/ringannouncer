@@ -7,6 +7,7 @@ use App\Models\Event;
 use App\Models\Gallery;
 use App\Models\Media;
 use App\Models\Partner;
+use App\Models\SiteSetting;
 use App\Models\SocialLink;
 use App\Models\Video;
 use Illuminate\View\View;
@@ -57,6 +58,7 @@ class HomeController extends Controller
             ->first();
 
         return view('home', [
+            'settings' => SiteSetting::query()->first(),
             'upcomingEvents' => $upcomingEvents,
             'recentEvents' => $recentEvents,
             'articles' => $articles,

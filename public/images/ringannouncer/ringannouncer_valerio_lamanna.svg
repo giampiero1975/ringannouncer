@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="80 78 1515 300" role="img" aria-label="Ringannouncer Valerio Lamanna">
+<defs>
+  <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#F6D47A"/>
+    <stop offset=".45" stop-color="#C99336"/>
+    <stop offset=".75" stop-color="#F1C765"/>
+    <stop offset="1" stop-color="#9A6826"/>
+  </linearGradient>
+</defs>
+<!-- Transparent background -->
+<g transform="translate(105 122)" fill="url(#gold)">
+  <path d="M0 96 L18 25 L72 72 L108 0 L145 72 L198 25 L216 96
+           C154 78 63 78 0 96 Z"/>
+  <path d="M4 112 Q108 91 212 112 L208 130 Q108 111 8 130 Z"/>
+</g>
+
+<text x="355" y="235" font-family="Georgia, 'Times New Roman', serif"
+      font-size="142" font-weight="400" letter-spacing="-5">
+  <tspan fill="url(#gold)">RING</tspan><tspan fill="#F4F1EB">ANNOUNCER</tspan>
+</text>
+
+<line x1="112" y1="326" x2="390" y2="326" stroke="#C99336" stroke-width="5"/>
+<line x1="1320" y1="326" x2="1492" y2="326" stroke="#C99336" stroke-width="5"/>
+
+<text x="855" y="345" text-anchor="middle"
+      font-family="Arial, Helvetica, sans-serif" font-size="53"
+      font-weight="300" letter-spacing="18" fill="#F4F1EB">VALERIO LAMANNA</text>
+</svg>

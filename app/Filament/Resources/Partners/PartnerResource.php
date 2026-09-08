@@ -6,6 +6,7 @@ use App\Filament\Resources\Partners\Pages\CreatePartner;
 use App\Filament\Resources\Partners\Pages\EditPartner;
 use App\Filament\Resources\Partners\Pages\ListPartners;
 use App\Models\Partner;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
@@ -31,7 +32,7 @@ class PartnerResource extends Resource
         return $schema->components([
             Section::make('Partner')->schema([
                 TextInput::make('name')->label('Nome')->required()->maxLength(255),
-                TextInput::make('logo')->label('Logo'),
+                FileUpload::make('logo')->label('Logo')->image()->disk('public')->directory('partners/logos'),
                 TextInput::make('url')->label('Sito')->url(),
                 Textarea::make('description')->label('Descrizione')->rows(4)->columnSpanFull(),
                 TextInput::make('sort_order')->label('Ordine')->numeric()->default(0),

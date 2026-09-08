@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Events\Schemas;
 
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
@@ -35,13 +36,17 @@ class EventForm
                         TextInput::make('venue')->label('Location'),
                         TextInput::make('city')->label('Città'),
                         TextInput::make('country')->label('Paese')->default('Italia'),
-                        TextInput::make('weight_category')->label('Categoria di peso'),
+                        TextInput::make('weight_category')->label('Tipo evento / disciplina'),
                     ])->columns(2),
                 Section::make('Pubblicazione')
                     ->schema([
                         Toggle::make('is_published')->label('Pubblicato')->default(true),
                         Toggle::make('is_featured')->label('In evidenza'),
-                        TextInput::make('cover_image')->label('Immagine copertina'),
+                        FileUpload::make('cover_image')
+                            ->label('Immagine copertina')
+                            ->image()
+                            ->disk('public')
+                            ->directory('events/covers'),
                     ])->columns(3),
                 Section::make('SEO')
                     ->schema([

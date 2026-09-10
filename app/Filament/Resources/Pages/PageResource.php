@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Pages;
 
+use App\Filament\Resources\Pages\Pages\CreatePage;
 use App\Filament\Resources\Pages\Pages\EditPage;
 use App\Filament\Resources\Pages\Pages\ListPages;
 use App\Models\Page;
@@ -29,7 +30,6 @@ class PageResource extends Resource
     {
         return $schema->components([
             Section::make('Pagina')->schema([
-                TextInput::make('key')->label('Chiave')->required()->maxLength(255)->unique(ignoreRecord: true),
                 TextInput::make('title')->label('Titolo')->required()->maxLength(255),
                 Textarea::make('content')->label('Contenuto')->rows(18)->columnSpanFull(),
                 Toggle::make('is_published')->label('Pubblicata')->default(true),
@@ -55,6 +55,7 @@ class PageResource extends Resource
     {
         return [
             'index' => ListPages::route('/'),
+            'create' => CreatePage::route('/create'),
             'edit' => EditPage::route('/{record}/edit'),
         ];
     }

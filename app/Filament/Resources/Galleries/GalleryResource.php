@@ -33,7 +33,6 @@ class GalleryResource extends Resource
         return $schema->components([
             Section::make('Gallery')->schema([
                 TextInput::make('title')->label('Titolo')->required()->maxLength(255),
-                TextInput::make('slug')->required()->maxLength(255)->unique(ignoreRecord: true),
                 Textarea::make('description')->label('Descrizione')->rows(5)->columnSpanFull(),
                 TextInput::make('cover_image')->label('Immagine copertina'),
                 DateTimePicker::make('published_at')->label('Data pubblicazione'),

@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasUniqueKey;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Page extends Model
 {
     use HasFactory;
+    use HasUniqueKey;
 
     protected $fillable = [
         'legacy_drupal_id',
@@ -24,5 +26,15 @@ class Page extends Model
         return [
             'is_published' => 'boolean',
         ];
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'key';
+    }
+
+    public function scopePublished($query)
+    {
+        return $query->where('is_published', true);
     }
 }

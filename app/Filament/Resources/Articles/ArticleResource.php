@@ -32,7 +32,6 @@ class ArticleResource extends Resource
         return $schema->components([
             Section::make('Contenuto')->schema([
                 TextInput::make('title')->label('Titolo')->required()->maxLength(255),
-                TextInput::make('slug')->required()->maxLength(255)->unique(ignoreRecord: true),
                 Textarea::make('excerpt')->label('Estratto')->rows(3)->columnSpanFull(),
                 Textarea::make('content')->label('Testo')->rows(16)->columnSpanFull(),
                 DateTimePicker::make('published_at')->label('Data pubblicazione'),

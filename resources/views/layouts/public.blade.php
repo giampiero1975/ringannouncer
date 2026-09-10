@@ -21,14 +21,19 @@
 
         return \Illuminate\Support\Facades\Storage::url($path);
     };
+    $pageLinks = \App\Models\Page::query()
+        ->published()
+        ->whereIn('key', ['chi-sono', 'video-37', 'contatti'])
+        ->pluck('key')
+        ->mapWithKeys(fn (string $key) => [$key => route('pages.show', $key)]);
     $navItems = collect([
         ['label' => 'Home', 'href' => route('home') . '#home'],
-        ['label' => 'Chi sono', 'href' => route('home') . '#bio'],
+        ['label' => 'Chi sono', 'href' => $pageLinks['chi-sono'] ?? route('home') . '#bio'],
         ['label' => 'Eventi', 'href' => route('home') . '#eventi'],
         ['label' => 'Gallery', 'href' => route('home') . '#gallery'],
-        ['label' => 'Video', 'href' => route('home') . '#video', 'show' => \App\Models\Video::where('is_published', true)->exists()],
+        ['label' => 'Video', 'href' => $pageLinks['video-37'] ?? route('home') . '#video', 'show' => \App\Models\Video::where('is_published', true)->exists() || isset($pageLinks['video-37'])],
         ['label' => 'Curiosità', 'href' => route('home') . '#curiosita', 'show' => \App\Models\Article::where('is_published', true)->exists()],
-        ['label' => 'Contatti', 'href' => route('home') . '#contatti'],
+        ['label' => 'Contatti', 'href' => $pageLinks['contatti'] ?? route('home') . '#contatti'],
     ])->filter(fn ($item) => $item['show'] ?? true)
         ->map(fn ($item) => array_merge($item, ['active' => $activeNav === $item['label']]))
         ->values();

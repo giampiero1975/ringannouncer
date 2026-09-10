@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Event;
+use App\Models\Page;
 use App\Models\Partner;
 use App\Models\SiteSetting;
 use App\Models\Video;
@@ -69,8 +70,15 @@ class HomeController extends Controller
             ->orderBy('sort_order')
             ->get();
 
+        $pageLinks = Page::query()
+            ->published()
+            ->whereIn('key', ['chi-sono', 'video-37', 'contatti'])
+            ->pluck('key')
+            ->mapWithKeys(fn (string $key) => [$key => route('pages.show', $key)]);
+
         return view('home', [
             'settings' => SiteSetting::query()->first(),
+            'homePage' => Page::query()->published()->where('key', 'home')->first(),
             'upcomingEvents' => $upcomingEvents,
             'recentEvents' => $recentEvents,
             'calendarEvents' => $calendarEvents,
@@ -78,6 +86,7 @@ class HomeController extends Controller
             'videos' => $videos,
             'partners' => Partner::where('is_active', true)->orderBy('sort_order')->get(),
             'bioStats' => $bioStats,
+            'pageLinks' => $pageLinks,
         ]);
     }
 }

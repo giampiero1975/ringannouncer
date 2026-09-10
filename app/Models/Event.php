@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasUniqueSlug;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Str;
 
 class Event extends Model
 {
     use HasFactory;
+    use HasUniqueSlug;
 
     protected $fillable = [
         'legacy_drupal_id',
@@ -66,24 +67,6 @@ class Event extends Model
             ->orderByRaw('event_date is null')
             ->orderBy('event_date', $direction)
             ->orderBy('id', $direction);
-    }
-
-    public static function uniqueSlug(string $title, ?int $ignoreId = null): string
-    {
-        $baseSlug = Str::slug($title) ?: 'evento';
-        $slug = $baseSlug;
-        $suffix = 2;
-
-        while (static::query()
-            ->where('slug', $slug)
-            ->when($ignoreId, fn ($query) => $query->whereKeyNot($ignoreId))
-            ->exists()
-        ) {
-            $slug = "{$baseSlug}-{$suffix}";
-            $suffix++;
-        }
-
-        return $slug;
     }
 
     public function locationLabel(): string

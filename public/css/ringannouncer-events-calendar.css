@@ -4,18 +4,66 @@
 }
 
 .events-carousel {
+    overflow: visible;
     padding-left: 48px;
     padding-right: 48px;
+}
+
+.events-carousel .carousel-track {
+    margin-top: -24px;
+    padding-top: 24px;
+}
+
+.calendar-stack {
+    display: grid;
+    align-self: start;
 }
 
 .events-carousel .event-card {
     width: 258px;
 }
 
+.events-carousel .event-card.is-featured {
+    overflow: visible;
+    border: 1px solid rgba(229, 189, 114, .88);
+    box-shadow: 0 0 0 1px rgba(255, 238, 184, .30), 0 16px 34px rgba(196, 146, 63, .26);
+}
+
+.events-carousel .event-card.is-featured img {
+    filter: saturate(1.12) contrast(1.08) brightness(1.06);
+}
+
+.events-carousel .event-card.is-featured::before {
+    content: "";
+    position: absolute;
+    z-index: 4;
+    top: -18px;
+    right: 7px;
+    width: 58px;
+    aspect-ratio: 1;
+    background-image: url("/images/ringannouncer/top-match-badge.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    filter: drop-shadow(0 10px 16px rgba(0, 0, 0, .42));
+    pointer-events: none;
+}
+
 .mini-calendar {
     align-self: start;
     margin: 0;
     max-width: 228px;
+    padding: 12px;
+    border: 2px solid rgba(196, 146, 63, .76);
+    background-image: linear-gradient(rgba(255, 255, 255, .80), rgba(255, 255, 255, .80)), var(--calendar-bg);
+    background-position: center bottom;
+    background-size: cover;
+    box-shadow: inset 0 0 0 1px rgba(255, 238, 184, .46), 0 12px 26px rgba(17, 17, 17, .08);
+}
+
+.mini-calendar__head span,
+.mini-calendar__head strong {
+    font-weight: 550;
 }
 
 .mini-calendar__bar {
@@ -32,7 +80,7 @@
     color: #1d1914;
     font-family: "Arial Narrow", "Oswald", Arial, sans-serif;
     font-size: 11px;
-    font-weight: 900;
+    font-weight: 550;
     letter-spacing: .12em;
     text-transform: uppercase;
     cursor: pointer;
@@ -204,6 +252,10 @@
         grid-template-columns: 250px minmax(0, 1fr);
     }
 
+    .calendar-stack {
+        max-width: 320px;
+    }
+
     .events-carousel {
         grid-column: 1 / -1;
         padding-left: 52px;
@@ -212,6 +264,10 @@
 
     .events-carousel .event-card {
         width: 300px;
+    }
+
+    .events-carousel .event-card.is-featured::before {
+        width: 62px;
     }
 
     .mini-calendar {
@@ -224,6 +280,10 @@
         grid-template-columns: 1fr;
     }
 
+    .calendar-stack {
+        max-width: 100%;
+    }
+
     .events-carousel {
         grid-column: auto;
         padding: 0 0 52px;
@@ -231,6 +291,12 @@
 
     .events-carousel .event-card {
         width: 82vw;
+    }
+
+    .events-carousel .event-card.is-featured::before {
+        top: -17px;
+        right: 8px;
+        width: 58px;
     }
 
     .mini-calendar {

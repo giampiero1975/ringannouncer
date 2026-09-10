@@ -14,14 +14,14 @@ class RingOverview extends StatsOverviewWidget
     protected function getStats(): array
     {
         $nextEvent = Event::query()
-            ->where('is_published', true)
-            ->whereNotNull('event_date')
+            ->published()
+            ->withEventDate()
             ->where('event_date', '>=', now())
-            ->orderBy('event_date')
+            ->orderByEventDate()
             ->first();
 
         return [
-            Stat::make('Prossimi eventi', Event::where('is_published', true)->where('event_date', '>=', now())->count())
+            Stat::make('Prossimi eventi', Event::query()->published()->where('event_date', '>=', now())->count())
                 ->description($nextEvent ? 'Prossimo: '.$nextEvent->title : 'Nessun evento in programma'),
             Stat::make('Archivio eventi', Event::count())
                 ->description('Patrimonio storico migrato'),

@@ -94,17 +94,12 @@ class ImportDrupalPortfolio extends Command
         foreach ($rows as $row) {
             try {
                 $eventDate = $row->field_event_date_value;
-                $status = $eventDate && $eventDate > now()->format('Y-m-d H:i:s')
-                    ? 'scheduled'
-                    : 'completed';
 
                 $payload = [
                     'title' => $row->title,
                     'slug' => Str::slug($row->title).'-'.$row->nid,
                     'description' => $row->body_value,
                     'event_date' => $eventDate,
-                    'event_end_date' => $row->field_event_date_value2,
-                    'status' => $status,
                     'weight_category' => self::WEIGHT_CATEGORIES[(string) $row->field_categoria_value] ?? null,
                     'is_published' => (bool) $row->drupal_status,
                 ];

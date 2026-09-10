@@ -29,7 +29,10 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->passwordReset()
+            ->profile()
             ->brandName('RingAnnouncer')
+            ->darkMode()
             ->colors([
                 'primary' => Color::Amber,
             ])

@@ -3,8 +3,8 @@
 namespace App\Filament\Resources\Events\Pages;
 
 use App\Filament\Resources\Events\EventResource;
+use App\Models\Event;
 use Filament\Resources\Pages\CreateRecord;
-use Illuminate\Support\Str;
 
 class CreateEvent extends CreateRecord
 {
@@ -12,7 +12,7 @@ class CreateEvent extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $data['slug'] = $data['slug'] ?: Str::slug($data['title']);
+        $data['slug'] = Event::uniqueSlug($data['title']);
 
         return $data;
     }

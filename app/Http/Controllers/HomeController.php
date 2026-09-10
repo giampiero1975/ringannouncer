@@ -19,7 +19,7 @@ class HomeController extends Controller
     {
         $now = now();
         $publishedEventCount = Event::query()
-            ->where('is_published', true)
+            ->published()
             ->count();
 
         $bioStats = [
@@ -30,25 +30,25 @@ class HomeController extends Controller
         ];
 
         $upcomingEvents = Event::query()
-            ->where('is_published', true)
-            ->whereNotNull('event_date')
+            ->published()
+            ->withEventDate()
             ->where('event_date', '>=', $now)
-            ->orderBy('event_date')
+            ->orderByEventDate('desc')
             ->limit(12)
             ->get();
 
         $recentEvents = Event::query()
-            ->where('is_published', true)
-            ->whereNotNull('event_date')
+            ->published()
+            ->withEventDate()
             ->where('event_date', '<', $now)
-            ->orderByDesc('event_date')
+            ->orderByEventDate('desc')
             ->limit(12)
             ->get();
 
         $calendarEvents = Event::query()
-            ->where('is_published', true)
-            ->whereNotNull('event_date')
-            ->orderBy('event_date')
+            ->published()
+            ->withEventDate()
+            ->orderByEventDate()
             ->get(['title', 'event_date', 'venue', 'city'])
             ->map(fn (Event $event) => [
                 'title' => $event->title,

@@ -1,3 +1,5 @@
 .env
 /vendor
+/public/storage
+/storage/app
 /storage/logs

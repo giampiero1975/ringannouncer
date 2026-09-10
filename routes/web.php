@@ -10,8 +10,8 @@ Route::get('/', HomeController::class)->name('home');
 Route::get('/eventi', function () {
     return view('events.index', [
         'events' => Event::query()
-            ->where('is_published', true)
-            ->orderByDesc('event_date')
+            ->published()
+            ->orderByEventDate('desc')
             ->paginate(24),
     ]);
 })->name('events.index');

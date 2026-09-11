@@ -7,6 +7,7 @@ use App\Filament\Resources\Articles\Pages\EditArticle;
 use App\Filament\Resources\Articles\Pages\ListArticles;
 use App\Models\Article;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
@@ -35,7 +36,15 @@ class ArticleResource extends Resource
                 Textarea::make('excerpt')->label('Estratto')->rows(3)->columnSpanFull(),
                 Textarea::make('content')->label('Testo')->rows(16)->columnSpanFull(),
                 DateTimePicker::make('published_at')->label('Data pubblicazione'),
-                TextInput::make('cover_image')->label('Immagine copertina'),
+                FileUpload::make('cover_image')
+                    ->label('Immagine copertina')
+                    ->image()
+                    ->disk('public')
+                    ->directory('articles/covers')
+                    ->visibility('public')
+                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                    ->maxSize(4096)
+                    ->columnSpanFull(),
                 Toggle::make('is_published')->label('Pubblicato')->default(true),
                 Toggle::make('is_featured')->label('In evidenza'),
             ])->columns(2),
@@ -53,7 +62,7 @@ class ArticleResource extends Resource
             TextColumn::make('published_at')->label('Data')->date('d/m/Y')->sortable(),
             IconColumn::make('is_published')->label('Pubblicato')->boolean(),
             TextColumn::make('legacy_drupal_id')->label('Drupal')->toggleable(isToggledHiddenByDefault: true),
-        ])->defaultSort('published_at', 'desc');
+        ])->defaultSort('id', 'desc');
     }
 
     public static function getPages(): array

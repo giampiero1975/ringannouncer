@@ -2,7 +2,11 @@
 
 @section('title', ($page->seo_title ?: $page->title) . ' | RingAnnouncer Valerio')
 @section('description', $page->seo_description ?: \Illuminate\Support\Str::limit(trim(strip_tags($page->content ?? '')), 155))
-@section('activeNav', $page->key === 'chi-sono' ? 'Chi sono' : ($page->key === 'video-37' ? 'Video' : ''))
+@section('activeNav', match ($page->key) {
+    'chi-sono' => 'Chi sono',
+    'contatti' => 'Contatti',
+    default => '',
+})
 
 @push('styles')
 <style>

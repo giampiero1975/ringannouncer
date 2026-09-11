@@ -10,14 +10,13 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 
 class EventsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
-            ->defaultSort(fn (Builder $query): Builder => $query->orderByEventDate('desc'))
+            ->defaultSort('id', 'desc')
             ->columns([
                 TextColumn::make('event_date')->label('Data')->dateTime('d/m/Y H:i')->sortable(),
                 TextColumn::make('title')->label('Titolo')->searchable()->sortable(),

@@ -43,15 +43,25 @@ document.querySelectorAll(".carousel").forEach(function (carousel) {
         if (next && max > 2) next.disabled = track.scrollLeft >= max - 2;
     };
 
+    var scrollToSibling = function (direction) {
+        var items = [].slice.call(track.children);
+        if (!items.length) return;
+
+        var current = items.reduce(function (nearest, item, index) {
+            var distance = Math.abs(item.offsetLeft - track.scrollLeft);
+            return distance < nearest.distance ? { index: index, distance: distance } : nearest;
+        }, { index: 0, distance: Infinity }).index;
+
+        var nextIndex = Math.max(0, Math.min(items.length - 1, current + direction));
+        track.scrollTo({
+            left: items[nextIndex].offsetLeft,
+            behavior: "smooth",
+        });
+    };
+
     buttons.forEach(function (button) {
         button.addEventListener("click", function () {
-            var card = track.querySelector(":scope > *");
-            var gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 16;
-            var step = card ? card.getBoundingClientRect().width + gap : track.clientWidth * .85;
-            track.scrollBy({
-                left: button.hasAttribute("data-carousel-prev") ? -step : step,
-                behavior: "smooth",
-            });
+            scrollToSibling(button.hasAttribute("data-carousel-prev") ? -1 : 1);
         });
     });
 
@@ -99,25 +109,38 @@ var galleryModal = document.querySelector("[data-gallery-modal]");
 if (galleryModal) {
     var galleryImage = galleryModal.querySelector("[data-gallery-image]");
     var galleryTitle = galleryModal.querySelector("[data-gallery-title]");
+    var galleryTimer = null;
     var closeGallery = function () {
-        galleryModal.hidden = true;
+        if (galleryModal.hidden) return;
+        window.clearTimeout(galleryTimer);
+        galleryModal.classList.remove("is-open");
+        galleryModal.classList.add("is-closing");
         body.classList.remove("modal-open");
-        if (galleryImage) {
-            galleryImage.src = "";
-            galleryImage.alt = "";
-        }
+        galleryTimer = window.setTimeout(function () {
+            galleryModal.hidden = true;
+            galleryModal.classList.remove("is-closing");
+            if (galleryImage) {
+                galleryImage.src = "";
+                galleryImage.alt = "";
+            }
+        }, 260);
     };
     var openGallery = function (trigger) {
         var src = trigger.getAttribute("data-gallery-modal-image");
         var title = trigger.getAttribute("data-gallery-modal-title") || "Gallery";
         if (!src || !galleryImage) return;
 
+        window.clearTimeout(galleryTimer);
         galleryImage.src = src;
         galleryImage.alt = title;
         if (galleryTitle) galleryTitle.textContent = title;
+        galleryModal.classList.remove("is-closing");
         galleryModal.hidden = false;
         body.classList.add("modal-open");
-        galleryModal.querySelector("[data-gallery-close]")?.focus();
+        window.requestAnimationFrame(function () {
+            galleryModal.classList.add("is-open");
+        });
+        galleryModal.querySelector("button[data-gallery-close]")?.focus();
     };
 
     document.querySelectorAll("[data-gallery-modal-image]").forEach(function (trigger) {
@@ -139,7 +162,6 @@ if (galleryModal) {
         if (event.key === "Escape" && !galleryModal.hidden) closeGallery();
     });
 }
-
 document.querySelectorAll("[data-calendar]").forEach(function (calendar) {
     var grid = calendar.querySelector("[data-calendar-grid]");
     var monthLabel = calendar.querySelector("[data-calendar-month]");

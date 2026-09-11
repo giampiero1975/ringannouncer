@@ -3,6 +3,8 @@
 use App\Http\Controllers\HomeController;
 use App\Models\Article;
 use App\Models\Event;
+use App\Models\Gallery;
+use App\Models\Media;
 use App\Models\Page;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +28,35 @@ Route::get('/curiosita', function () {
     ]);
 })->name('articles.index');
 
+
+Route::get('/gallery', function () {
+    return view('galleries.index', [
+        'gallery' => Gallery::query()
+            ->where('is_published', true)
+            ->withCount('media')
+            ->orderByDesc('id')
+            ->first(),
+        'media' => Media::query()
+            ->where('type', 'image')
+            ->whereHas('gallery', fn ($query) => $query->where('is_published', true))
+            ->orderBy('sort_order')
+            ->orderByDesc('id')
+            ->paginate(36),
+    ]);
+})->name('galleries.index');
+
+Route::get('/gallery/{gallery:slug}', function (Gallery $gallery) {
+    abort_unless($gallery->is_published, 404);
+
+    return view('galleries.index', [
+        'gallery' => $gallery,
+        'media' => $gallery->media()
+            ->where('type', 'image')
+            ->orderBy('sort_order')
+            ->orderByDesc('id')
+            ->paginate(36),
+    ]);
+})->name('galleries.show');
 Route::get('/pagine/{page:key}', function (Page $page) {
     return redirect()->route('pages.show', $page, 301);
 })->name('pages.legacy');

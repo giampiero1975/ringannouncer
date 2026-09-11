@@ -8,13 +8,15 @@ use App\Filament\Resources\Galleries\Pages\ListGalleries;
 use App\Filament\Resources\Galleries\RelationManagers\MediaRelationManager;
 use App\Models\Gallery;
 use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Resources\Resource;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use UnitEnum;
@@ -34,7 +36,14 @@ class GalleryResource extends Resource
             Section::make('Gallery')->schema([
                 TextInput::make('title')->label('Titolo')->required()->maxLength(255),
                 Textarea::make('description')->label('Descrizione')->rows(5)->columnSpanFull(),
-                TextInput::make('cover_image')->label('Immagine copertina'),
+                FileUpload::make('cover_image')
+                    ->label('Immagine copertina')
+                    ->image()
+                    ->disk('public')
+                    ->directory('galleries/covers')
+                    ->visibility('public')
+                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                    ->maxSize(4096),
                 DateTimePicker::make('published_at')->label('Data pubblicazione'),
                 Toggle::make('is_published')->label('Pubblicata')->default(true),
             ])->columns(2),
@@ -44,12 +53,22 @@ class GalleryResource extends Resource
     public static function table(Table $table): Table
     {
         return $table->columns([
+            ImageColumn::make('cover_image')
+                ->label('Cover')
+                ->disk('public')
+                ->square()
+                ->toggleable(),
             TextColumn::make('title')->label('Titolo')->searchable()->sortable(),
             TextColumn::make('media_count')->counts('media')->label('Foto'),
             TextColumn::make('published_at')->label('Data')->date('d/m/Y')->sortable(),
             IconColumn::make('is_published')->label('Pubblicata')->boolean(),
+            TextColumn::make('public_url')
+                ->label('URL pubblico')
+                ->state(fn (Gallery $record): string => route('galleries.show', $record))
+                ->url(fn (Gallery $record): string => route('galleries.show', $record))
+                ->openUrlInNewTab(),
             TextColumn::make('legacy_drupal_id')->label('Drupal')->toggleable(isToggledHiddenByDefault: true),
-        ])->defaultSort('published_at', 'desc');
+        ])->defaultSort('id', 'desc');
     }
 
     public static function getRelations(): array

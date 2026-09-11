@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\Pages;
 
-use App\Filament\Resources\Pages\Pages\CreatePage;
 use App\Filament\Resources\Pages\Pages\EditPage;
 use App\Filament\Resources\Pages\Pages\ListPages;
 use App\Models\Page;
@@ -26,6 +25,11 @@ class PageResource extends Resource
     protected static ?string $pluralModelLabel = 'pagine';
     protected static UnitEnum|string|null $navigationGroup = 'Contenuti';
 
+
+    public static function canCreate(): bool
+    {
+        return false;
+    }
     public static function form(Schema $schema): Schema
     {
         return $schema->components([
@@ -45,17 +49,21 @@ class PageResource extends Resource
     {
         return $table->columns([
             TextColumn::make('title')->label('Titolo')->searchable()->sortable(),
-            TextColumn::make('key')->label('Chiave')->badge(),
+            TextColumn::make('key')->label('Slug')->badge(),
+            TextColumn::make('public_url')
+                ->label('URL pubblico')
+                ->state(fn (Page $record): string => $record->key === 'home' ? url('/') : route('pages.show', $record))
+                ->url(fn (Page $record): string => $record->key === 'home' ? url('/') : route('pages.show', $record))
+                ->openUrlInNewTab(),
             IconColumn::make('is_published')->label('Pubblicata')->boolean(),
             TextColumn::make('legacy_drupal_id')->label('Drupal')->toggleable(isToggledHiddenByDefault: true),
-        ]);
+        ])->defaultSort('id', 'desc');
     }
 
     public static function getPages(): array
     {
         return [
             'index' => ListPages::route('/'),
-            'create' => CreatePage::route('/create'),
             'edit' => EditPage::route('/{record}/edit'),
         ];
     }

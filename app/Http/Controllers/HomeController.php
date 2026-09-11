@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Event;
+use App\Models\Media;
 use App\Models\Page;
 use App\Models\Partner;
 use App\Models\SiteSetting;
@@ -67,12 +68,21 @@ class HomeController extends Controller
 
         $videos = Video::query()
             ->where('is_published', true)
+            ->orderByDesc('id')
+            ->get();
+
+        $homeGalleryMedia = Media::query()
+            ->where('type', 'image')
+            ->where('show_on_home', true)
+            ->whereHas('gallery', fn ($query) => $query->where('is_published', true))
             ->orderBy('sort_order')
+            ->orderByDesc('id')
+            ->limit(5)
             ->get();
 
         $pageLinks = Page::query()
             ->published()
-            ->whereIn('key', ['chi-sono', 'video-37', 'contatti'])
+            ->whereIn('key', ['chi-sono', 'contatti'])
             ->pluck('key')
             ->mapWithKeys(fn (string $key) => [$key => route('pages.show', $key)]);
 
@@ -84,6 +94,7 @@ class HomeController extends Controller
             'calendarEvents' => $calendarEvents,
             'articles' => $articles,
             'videos' => $videos,
+            'homeGalleryMedia' => $homeGalleryMedia,
             'partners' => Partner::where('is_active', true)->orderBy('sort_order')->get(),
             'bioStats' => $bioStats,
             'pageLinks' => $pageLinks,

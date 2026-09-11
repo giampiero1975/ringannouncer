@@ -115,7 +115,7 @@ class ImportDrupalGalleries extends Command
                         [
                             'gallery_id' => $galleryId,
                             'type' => 'image',
-                            'file_path' => 'legacy-drupal/'.basename($row->uri),
+                            'file_path' => 'galleries/archive/'.basename($row->uri),
                             'original_name' => $row->filename,
                             'title' => $row->field_picture_title,
                             'alt_text' => $row->field_picture_alt,

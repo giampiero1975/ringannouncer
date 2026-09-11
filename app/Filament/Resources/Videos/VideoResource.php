@@ -32,7 +32,7 @@ class VideoResource extends Resource
         return $schema->components([
             Section::make('Video YouTube')->schema([
                 TextInput::make('title')->label('Titolo')->required()->maxLength(255),
-                TextInput::make('youtube_id')->label('YouTube ID')->required()->maxLength(64)->unique(ignoreRecord: true),
+                TextInput::make('youtube_id')->label('URL YouTube o ID')->helperText('Puoi incollare il link completo, l\'embed o solo l\'ID. Il sistema salverà automaticamente l\'ID pulito.')->required()->maxLength(255)->unique(ignoreRecord: true),
                 Textarea::make('description')->label('Descrizione')->rows(5)->columnSpanFull(),
                 TextInput::make('thumbnail')->label('Thumbnail'),
                 DateTimePicker::make('published_at')->label('Data pubblicazione'),
@@ -51,7 +51,7 @@ class VideoResource extends Resource
             TextColumn::make('published_at')->label('Data')->date('d/m/Y')->sortable(),
             IconColumn::make('is_featured')->label('Evidenza')->boolean(),
             IconColumn::make('is_published')->label('Pubblicato')->boolean(),
-        ])->defaultSort('sort_order');
+        ])->defaultSort('id', 'desc');
     }
 
     public static function getPages(): array

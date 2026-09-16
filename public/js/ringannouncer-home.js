@@ -292,9 +292,11 @@ if (videoModal) {
             var id = trigger.getAttribute("data-video-id");
             if (!id || !frame) return;
             if (title) title.textContent = trigger.getAttribute("data-video-title") || "Video";
-            frame.src = "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(id) + "?autoplay=1&rel=0";
             videoModal.hidden = false;
             body.classList.add("modal-open");
+            window.requestAnimationFrame(function () {
+                frame.src = "https://www.youtube.com/embed/" + encodeURIComponent(id) + "?autoplay=1&rel=0";
+            });
             videoModal.querySelector("[data-video-close]")?.focus();
         });
     });
@@ -365,3 +367,4 @@ if ("IntersectionObserver" in window && sections.length) {
         observer.observe(section);
     });
 }
+

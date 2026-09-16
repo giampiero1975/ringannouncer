@@ -60,7 +60,6 @@
             </a>
             <x-site-nav :items="$navItems" />
             <x-social-icons />
-            <a class="btn" href="{{ route('home') }}#eventi">Prossimi eventi</a>
             <button class="menu-toggle" type="button" aria-label="Apri menu" aria-expanded="false"><span></span><span></span><span></span></button>
         </div>
     </header>

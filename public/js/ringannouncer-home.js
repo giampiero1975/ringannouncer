@@ -109,7 +109,23 @@ var galleryModal = document.querySelector("[data-gallery-modal]");
 if (galleryModal) {
     var galleryImage = galleryModal.querySelector("[data-gallery-image]");
     var galleryTitle = galleryModal.querySelector("[data-gallery-title]");
+    var galleryPrevious = galleryModal.querySelector("[data-gallery-prev]");
+    var galleryNext = galleryModal.querySelector("[data-gallery-next]");
+    var galleryTriggers = [].slice.call(document.querySelectorAll("[data-gallery-modal-image]"));
     var galleryTimer = null;
+    var currentGalleryIndex = 0;
+
+    var setGalleryImage = function (trigger) {
+        var src = trigger.getAttribute("data-gallery-modal-image");
+        var title = trigger.getAttribute("data-gallery-modal-title") || "Gallery";
+        if (!src || !galleryImage) return false;
+
+        galleryImage.src = src;
+        galleryImage.alt = title;
+        if (galleryTitle) galleryTitle.textContent = title;
+        return true;
+    };
+
     var closeGallery = function () {
         if (galleryModal.hidden) return;
         window.clearTimeout(galleryTimer);
@@ -125,15 +141,12 @@ if (galleryModal) {
             }
         }, 260);
     };
+
     var openGallery = function (trigger) {
-        var src = trigger.getAttribute("data-gallery-modal-image");
-        var title = trigger.getAttribute("data-gallery-modal-title") || "Gallery";
-        if (!src || !galleryImage) return;
+        currentGalleryIndex = Math.max(0, galleryTriggers.indexOf(trigger));
+        if (!setGalleryImage(trigger)) return;
 
         window.clearTimeout(galleryTimer);
-        galleryImage.src = src;
-        galleryImage.alt = title;
-        if (galleryTitle) galleryTitle.textContent = title;
         galleryModal.classList.remove("is-closing");
         galleryModal.hidden = false;
         body.classList.add("modal-open");
@@ -143,7 +156,13 @@ if (galleryModal) {
         galleryModal.querySelector("button[data-gallery-close]")?.focus();
     };
 
-    document.querySelectorAll("[data-gallery-modal-image]").forEach(function (trigger) {
+    var stepGallery = function (direction) {
+        if (!galleryTriggers.length) return;
+        currentGalleryIndex = (currentGalleryIndex + direction + galleryTriggers.length) % galleryTriggers.length;
+        setGalleryImage(galleryTriggers[currentGalleryIndex]);
+    };
+
+    galleryTriggers.forEach(function (trigger) {
         trigger.addEventListener("click", function () {
             openGallery(trigger);
         });
@@ -155,11 +174,23 @@ if (galleryModal) {
         });
     });
 
+    galleryPrevious?.addEventListener("click", function (event) {
+        event.stopPropagation();
+        stepGallery(-1);
+    });
+    galleryNext?.addEventListener("click", function (event) {
+        event.stopPropagation();
+        stepGallery(1);
+    });
+
     galleryModal.addEventListener("click", function (event) {
         if (event.target.closest("[data-gallery-close]")) closeGallery();
     });
     document.addEventListener("keydown", function (event) {
-        if (event.key === "Escape" && !galleryModal.hidden) closeGallery();
+        if (galleryModal.hidden) return;
+        if (event.key === "Escape") closeGallery();
+        if (event.key === "ArrowLeft") stepGallery(-1);
+        if (event.key === "ArrowRight") stepGallery(1);
     });
 }
 document.querySelectorAll("[data-calendar]").forEach(function (calendar) {

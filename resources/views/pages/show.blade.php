@@ -159,10 +159,11 @@
 
     .story-footer-separator {
         position: relative;
-        height: 230px;
+        aspect-ratio: 2171 / 724;
+        height: auto;
         margin-top: 0;
         overflow: hidden;
-        background: #050607 url("{{ asset('images/ringannouncer/about-footer-separator.webp') }}") center bottom / 100% 100% no-repeat;
+        background: #050607 url("{{ asset('images/ringannouncer/about-footer-separator.webp') }}") center center / cover no-repeat;
     }
 
     .story-footer-separator::before {
@@ -203,7 +204,8 @@
         }
 
         .story-footer-separator {
-            height: 230px;
+            aspect-ratio: 2171 / 724;
+            height: auto;
             margin-top: 0;
         }
 

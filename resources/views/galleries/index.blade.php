@@ -8,9 +8,13 @@
 <style>
     .gallery-page {
         min-height: 100vh;
-        padding: 84px 0 76px;
+        padding: 84px 0 0;
         background: #fff;
         color: #111;
+    }
+
+    .gallery-page > .wrap {
+        padding-bottom: 76px;
     }
 
     .gallery-hero {
@@ -264,6 +268,10 @@
             padding-top: 76px;
         }
 
+        .gallery-page > .wrap {
+            padding-bottom: 56px;
+        }
+
         .gallery-hero {
             min-height: auto;
             padding: 38px 0 32px;
@@ -394,6 +402,7 @@
             <img data-gallery-image src="" alt="">
         </article>
     </div>
+    <x-page-footer-separator />
 </section>
 @endsection
 

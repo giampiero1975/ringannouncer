@@ -6,6 +6,24 @@
 
 @push('styles')
 <style>
+    .listing-page {
+        background: #fff;
+        padding-bottom: 0;
+    }
+
+    .listing-page > .wrap {
+        padding-bottom: 60px;
+    }
+
+    .listing-card span {
+        margin-top: 18px;
+    }
+
+    .content-modal__panel .listing-card__cover {
+        width: 100%;
+        margin: 0 0 20px;
+    }
+
     .pagination-wrap {
         display: flex;
         justify-content: center;
@@ -63,6 +81,10 @@
     }
 
     @media(max-width: 720px) {
+        .listing-page > .wrap {
+            padding-bottom: 56px;
+        }
+
         .public-pagination {
             gap: 6px;
             font-size: 11px;
@@ -109,14 +131,28 @@
 
                     $body = trim(strip_tags($article->content ?: 'Contenuto in aggiornamento.'));
                 @endphp
-                <article class="listing-card">
+                <article class="listing-card modal-trigger" role="button" tabindex="0" data-modal-target="article-page-modal-{{ $article->id }}">
                     @if($cover)
                         <img class="listing-card__cover" src="{{ $cover }}" alt="Copertina {{ $article->title }}" loading="lazy" decoding="async">
                     @endif
                     <time>{{ optional($article->published_at)->format('d.m.Y') ?: 'Archivio' }}</time>
                     <h2>{{ $article->title }}</h2>
                     <p>{{ \Illuminate\Support\Str::limit($body, 360) }}</p>
+                    <span>Leggi</span>
                 </article>
+
+                <div class="content-modal" id="article-page-modal-{{ $article->id }}" hidden>
+                    <div class="content-modal__backdrop" data-modal-close></div>
+                    <article class="content-modal__panel" role="dialog" aria-modal="true" aria-labelledby="article-page-title-{{ $article->id }}">
+                        <button class="content-modal__close" type="button" data-modal-close aria-label="Chiudi">×</button>
+                        <time class="content-modal__eyebrow">{{ optional($article->published_at)->format('d.m.Y') ?: 'Archivio' }}</time>
+                        <h3 id="article-page-title-{{ $article->id }}">{{ $article->title }}</h3>
+                        @if($cover)
+                            <img class="listing-card__cover" src="{{ $cover }}" alt="Copertina {{ $article->title }}" loading="lazy" decoding="async">
+                        @endif
+                        <p>{{ \Illuminate\Support\Str::limit($body, 1400) }}</p>
+                    </article>
+                </div>
             @endforeach
         </div>
 
@@ -146,5 +182,6 @@
             </div>
         @endif
     </div>
+    <x-page-footer-separator />
 </section>
 @endsection

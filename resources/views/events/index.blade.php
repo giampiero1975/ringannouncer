@@ -8,7 +8,7 @@
 <style>
     .events-page {
         min-height: 100vh;
-        padding: 84px 0 76px;
+        padding: 84px 0 0;
         background: #fff;
         color: #111;
     }
@@ -55,6 +55,7 @@
 
     .events-listing {
         padding-top: 8px;
+        padding-bottom: 76px;
     }
 
     .events-listing__bar {
@@ -287,6 +288,10 @@
             padding-top: 76px;
         }
 
+        .events-listing {
+            padding-bottom: 56px;
+        }
+
         .events-hero {
             min-height: auto;
             padding: 38px 0 32px;
@@ -408,6 +413,7 @@
             <div class="events-page__empty">Nessun evento pubblicato al momento.</div>
         @endif
     </div>
+    <x-page-footer-separator />
 </section>
 @endsection
 

@@ -12,9 +12,13 @@
 <style>
     .page-content {
         min-height: 520px;
-        padding: 138px 0 72px;
+        padding: 138px 0 0;
         background: #f4efe5;
         color: #111;
+    }
+
+    .page-content > .wrap {
+        padding-bottom: 72px;
     }
 
     .page-content__head {
@@ -47,7 +51,7 @@
 
     .contact-page {
         min-height: 100vh;
-        padding: 138px 0 88px;
+        padding: 138px 0 0;
         background: #f8f6f1;
         color: #111;
     }
@@ -57,6 +61,7 @@
         grid-template-columns: minmax(0, .85fr) minmax(420px, 1fr);
         gap: 56px;
         align-items: start;
+        padding-bottom: 88px;
     }
 
     .contact-intro h1 {
@@ -295,21 +300,6 @@
         text-underline-offset: 3px;
     }
 
-    .story-footer-separator {
-        position: relative;
-        aspect-ratio: 2171 / 724;
-        height: auto;
-        margin-top: 0;
-        overflow: hidden;
-        background: #050607 url("{{ asset('images/ringannouncer/about-footer-separator.webp') }}") center center / cover no-repeat;
-    }
-
-    .story-footer-separator::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, .38) 18%, rgba(255, 255, 255, 0) 42%);
-    }
     .story-content__body blockquote {
         border-left: 2px solid var(--gold);
         padding-left: 22px;
@@ -341,19 +331,17 @@
             font-size: 18px;
         }
 
-        .story-footer-separator {
-            aspect-ratio: 2171 / 724;
-            height: auto;
-            margin-top: 0;
-        }
-
         .contact-page {
-            padding: 112px 0 56px;
+            padding: 112px 0 0;
         }
 
         .contact-layout,
         .contact-form__row {
             grid-template-columns: 1fr;
+        }
+
+        .contact-layout {
+            padding-bottom: 56px;
         }
 
         .contact-card {
@@ -396,7 +384,7 @@
             {!! $storyContent !!}
         </div>
     </div>
-    <div class="story-footer-separator" aria-hidden="true"></div>
+    <x-page-footer-separator />
 </section>
 @elseif($page->key === 'contatti')
 <section class="contact-page" id="top">
@@ -462,6 +450,7 @@
             </form>
         </div>
     </div>
+    <x-page-footer-separator />
 </section>
 @else
 <section class="page-content" id="top">
@@ -475,6 +464,7 @@
             {!! $page->content !!}
         </div>
     </div>
+    <x-page-footer-separator />
 </section>
 @endif
 @endsection

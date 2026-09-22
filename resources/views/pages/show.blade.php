@@ -45,6 +45,144 @@
         text-underline-offset: 3px;
     }
 
+    .contact-page {
+        min-height: 100vh;
+        padding: 138px 0 88px;
+        background: #f8f6f1;
+        color: #111;
+    }
+
+    .contact-layout {
+        display: grid;
+        grid-template-columns: minmax(0, .85fr) minmax(420px, 1fr);
+        gap: 56px;
+        align-items: start;
+    }
+
+    .contact-intro h1 {
+        margin: 14px 0 18px;
+        font: 900 clamp(58px, 7vw, 98px)/.82 "Bodoni MT Poster Compressed", "Bodoni 72 Smallcaps", "Bodoni MT", Didot, Georgia, "Times New Roman", serif;
+        text-transform: uppercase;
+        letter-spacing: 0;
+    }
+
+    .contact-intro h1 span {
+        display: block;
+        color: var(--gold);
+    }
+
+    .contact-intro p {
+        max-width: 500px;
+        margin: 0 0 24px;
+        color: #2b251f;
+        font: 20px/1.42 Georgia, "Times New Roman", serif;
+    }
+
+    .contact-details {
+        display: grid;
+        gap: 14px;
+        margin-top: 32px;
+        padding-top: 24px;
+        border-top: 1px solid rgba(196, 146, 63, .32);
+    }
+
+    .contact-details span {
+        display: block;
+        color: var(--gold);
+        font-family: "Arial Narrow", "Oswald", Arial, sans-serif;
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: .16em;
+        text-transform: uppercase;
+    }
+
+    .contact-details a,
+    .contact-details strong {
+        color: #111;
+        font: 700 18px/1.25 Georgia, "Times New Roman", serif;
+    }
+
+    .contact-card {
+        border: 1px solid rgba(196, 146, 63, .35);
+        background: #fff;
+        padding: 32px;
+        box-shadow: 0 24px 60px rgba(28, 20, 10, .08);
+    }
+
+    .contact-card__status {
+        margin: 0 0 20px;
+        border-left: 3px solid var(--gold);
+        padding: 12px 14px;
+        background: rgba(196, 146, 63, .1);
+        color: #241c13;
+        font: 700 15px/1.35 Georgia, "Times New Roman", serif;
+    }
+
+    .contact-form {
+        display: grid;
+        gap: 16px;
+    }
+
+    .contact-form__row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+    }
+
+    .contact-form label {
+        display: grid;
+        gap: 8px;
+        color: #1d1813;
+        font-family: "Arial Narrow", "Oswald", Arial, sans-serif;
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        width: 100%;
+        border: 1px solid rgba(17, 17, 17, .18);
+        background: #fbfaf7;
+        color: #111;
+        font: 16px/1.35 Georgia, "Times New Roman", serif;
+        padding: 13px 14px;
+        outline: none;
+        transition: border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .contact-form textarea {
+        min-height: 150px;
+        resize: vertical;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+        border-color: var(--gold);
+        box-shadow: 0 0 0 3px rgba(196, 146, 63, .14);
+    }
+
+    .contact-form__error {
+        color: #9f231f;
+        font: 700 13px/1.3 Arial, Helvetica, sans-serif;
+        letter-spacing: 0;
+        text-transform: none;
+    }
+
+    .contact-form__hidden {
+        position: absolute;
+        left: -9999px;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .contact-form .btn {
+        width: fit-content;
+        min-width: 190px;
+        border: 0;
+        cursor: pointer;
+    }
     .story-page {
         min-height: 100vh;
         padding: 84px 0 0;

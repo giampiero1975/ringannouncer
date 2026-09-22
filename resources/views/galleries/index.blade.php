@@ -368,7 +368,7 @@
                         $showCaption = str_contains($itemClass, 'has-caption');
                     @endphp
                     <figure class="editorial-gallery__item {{ $itemClass }}" data-gallery-modal-image="{{ $image->public_url }}" data-gallery-modal-title="{{ $image->display_title }}" role="button" tabindex="0">
-                        <img src="{{ $image->thumbnail_url }}" alt="{{ $image->alt_text ?: $image->display_title }}" loading="lazy" decoding="async">
+                        <img src="{{ $image->thumbnail_url }}" alt="{{ $image->alt_text ?: $image->display_title }}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='{{ $image->public_url }}';">
                         @if($showCaption)
                             <figcaption class="editorial-gallery__caption">
                                 <strong>{{ $image->display_title }}</strong>

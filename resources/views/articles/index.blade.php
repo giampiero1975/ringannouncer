@@ -125,7 +125,7 @@
                         } elseif (str_starts_with($article->cover_image, 'images/')) {
                             $cover = $imageAsset($article->cover_image);
                         } else {
-                            $cover = \Illuminate\Support\Facades\Storage::url($article->cover_image);
+                            $cover = '/storage/'.ltrim($article->cover_image, '/');
                         }
                     }
 

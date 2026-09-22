@@ -44,10 +44,10 @@ class Media extends Model
         }
 
         if (str_starts_with($this->file_path, 'images/')) {
-            return asset($this->file_path);
+            return '/'.ltrim($this->file_path, '/');
         }
 
-        return Storage::url($this->file_path);
+        return '/storage/'.ltrim($this->file_path, '/');
     }
 
     public function getThumbnailUrlAttribute(): string
@@ -59,7 +59,7 @@ class Media extends Model
             $thumbnailPath = 'galleries/thumbs/'.($directory !== '' ? $directory.'/' : '').$filename;
 
             if (Storage::disk('public')->exists($thumbnailPath)) {
-                return Storage::url($thumbnailPath);
+                return '/storage/'.ltrim($thumbnailPath, '/');
             }
         }
 

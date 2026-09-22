@@ -354,7 +354,7 @@
                             } elseif (str_starts_with($event->cover_image, 'images/')) {
                                 $cover = asset($event->cover_image);
                             } else {
-                                $cover = \Illuminate\Support\Facades\Storage::url($event->cover_image);
+                                $cover = '/storage/'.ltrim($event->cover_image, '/');
                             }
                         } else {
                             $fallbacks = [

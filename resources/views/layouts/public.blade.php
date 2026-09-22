@@ -19,7 +19,7 @@
             return $imageAsset($path);
         }
 
-        return \Illuminate\Support\Facades\Storage::url($path);
+        return '/storage/'.ltrim($path, '/');
     };
     $pageLinks = \App\Models\Page::query()
         ->published()

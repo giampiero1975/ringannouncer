@@ -42,72 +42,6 @@
 <link rel="preload" as="style" href="{{ asset('css/ringannouncer-home.css') }}?v={{ filemtime(public_path('css/ringannouncer-home.css')) }}">
 <link rel="stylesheet" href="{{ asset('css/ringannouncer-home.css') }}?v={{ filemtime(public_path('css/ringannouncer-home.css')) }}">
 <link rel="stylesheet" href="{{ asset('css/ringannouncer-events-calendar.css') }}?v={{ filemtime(public_path('css/ringannouncer-events-calendar.css')) }}">
-<style>
-    .home-editorial {
-        position: relative;
-        padding: 42px 0 44px;
-        background: #fff var(--home-editorial-bg) center / auto 112% no-repeat;
-        color: #111;
-        overflow: hidden;
-    }
-
-    .home-editorial:before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(90deg, rgba(255, 255, 255, .99) 0%, rgba(255, 255, 255, .88) 32%, rgba(255, 255, 255, .80) 58%, rgba(255, 255, 255, .94) 100%);
-        pointer-events: none;
-    }
-
-    .home-editorial .wrap {
-        position: relative;
-        z-index: 2;
-        display: grid;
-        grid-template-columns: 300px minmax(0, 1fr);
-        gap: 42px;
-        align-items: start;
-    }
-
-    .home-editorial h2 {
-        margin: 12px 0 0;
-        font: 900 44px/.84 "Bodoni MT Poster Compressed", "Bodoni 72 Smallcaps", "Bodoni MT", Didot, Georgia, "Times New Roman", serif;
-        letter-spacing: -.018em;
-        text-transform: uppercase;
-    }
-
-    .home-editorial__body {
-        max-width: 920px;
-        font: 17px/1.56 Georgia, "Times New Roman", serif;
-        color: #27211b;
-    }
-
-    .home-editorial__body p,
-    .home-editorial__body blockquote {
-        margin: 0 0 1em;
-    }
-
-    .home-editorial__body blockquote {
-        padding-left: 22px;
-        border-left: 2px solid rgba(196, 146, 63, .58);
-        font-style: italic;
-    }
-
-    @media(max-width: 720px) {
-        .home-editorial {
-            padding: 34px 0 36px;
-        }
-
-        .home-editorial .wrap {
-            grid-template-columns: 1fr;
-            gap: 20px;
-        }
-
-        .home-editorial h2 {
-            font-size: 36px;
-        }
-
-    }
-</style>
 </head>
 <body>
 @php
@@ -231,14 +165,4 @@
 </main><footer class="footer" style="background-image:url('{{ $images['footerBg'] }}')"><div class="wrap footer-grid"><a class="brand" href="#home"><img src="{{ $imageAsset('images/ringannouncer/logo-valerio-header.png') }}" alt="RingAnnouncer Valerio Lamanna" width="1825" height="355" loading="lazy" decoding="async"></a><x-site-nav :items="$footerNavItems" /><x-social-icons /><div class="tag">{{ $s?->footer_tagline ?? 'Preparazione. Dettaglio. Spettacolo.' }}</div><a class="up" href="#home">↑</a><div class="copy">© {{ date('Y') }} RingAnnouncer. Tutti i diritti riservati.</div><a class="credit" href="https://byoursite.com" target="_blank" rel="noopener"><span>Website by</span> byoursite.com</a></div></footer>
 </div><script src="{{ asset('js/ringannouncer-home.js') }}?v={{ filemtime(public_path('js/ringannouncer-home.js')) }}" defer></script>
 </body>
-</html>
-
-
-
-
-
-
-
-
-
-
+</html>

@@ -36,3 +36,55 @@
     inset: 0;
     background: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, .38) 18%, rgba(255, 255, 255, 0) 42%);
 }
+
+.footer .nav {
+    flex-wrap: wrap;
+    gap: 12px 22px;
+    font-size: 15px;
+    line-height: 1.2;
+    letter-spacing: .08em;
+}
+
+.footer .nav a {
+    padding: 3px 0 7px;
+}
+
+.cta-link {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+}
+
+.cta-link span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+.cta {
+    aspect-ratio: 964 / 118;
+    min-height: 118px;
+}
+
+.cta-bg img {
+    object-position: center center;
+    filter: none;
+}
+
+.cta-bg:after {
+    display: none;
+}
+
+.cta-inner {
+    display: none;
+}
+
+@media(max-width:720px) {
+    .cta {
+        aspect-ratio: auto;
+        min-height: 126px;
+    }
+}

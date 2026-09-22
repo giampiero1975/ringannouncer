@@ -37,6 +37,17 @@
     ])->filter(fn ($item) => $item['show'] ?? true)
         ->map(fn ($item) => array_merge($item, ['active' => $activeNav === $item['label']]))
         ->values();
+    $footerNavItems = collect([
+        ['label' => 'Home', 'href' => route('home')],
+        ['label' => 'Chi sono', 'href' => $pageLinks['chi-sono'] ?? route('home') . '#bio'],
+        ['label' => 'Eventi', 'href' => route('events.index')],
+        ['label' => 'Gallery', 'href' => route('galleries.index')],
+        ['label' => 'Video', 'href' => route('home') . '#video', 'show' => \App\Models\Video::where('is_published', true)->exists()],
+        ['label' => 'Curiosità', 'href' => route('articles.index'), 'show' => \App\Models\Article::where('is_published', true)->exists()],
+        ['label' => 'Contatti', 'href' => $pageLinks['contatti'] ?? route('home') . '#contatti'],
+    ])->filter(fn ($item) => $item['show'] ?? true)
+        ->map(fn ($item) => array_merge($item, ['active' => false]))
+        ->values();
     $footerBg = $assetOrUploaded($settings?->footer_background_image, 'images/ringannouncer/mockup-slices/section-bg-dark-clean.png');
 @endphp
 <!DOCTYPE html>
@@ -71,7 +82,7 @@
             <a class="brand" href="{{ route('home') }}#home">
                 <img src="{{ $imageAsset('images/ringannouncer/logo-valerio-header.png') }}" alt="RingAnnouncer Valerio Lamanna" width="1825" height="355" loading="lazy" decoding="async">
             </a>
-            <x-site-nav :items="$navItems" />
+            <x-site-nav :items="$footerNavItems" />
             <x-social-icons />
             <div class="tag">{{ $settings?->footer_tagline ?? 'Preparazione. Dettaglio. Spettacolo.' }}</div>
             <a class="up" href="#top">↑</a>

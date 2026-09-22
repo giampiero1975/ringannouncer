@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Models\Article;
 use App\Models\Event;
@@ -57,6 +58,8 @@ Route::get('/gallery/{gallery:slug}', function (Gallery $gallery) {
             ->paginate(36),
     ]);
 })->name('galleries.show');
+Route::post('/contatti', [ContactController::class, 'store'])->name('contact.store');
+
 Route::get('/pagine/{page:key}', function (Page $page) {
     return redirect()->route('pages.show', $page, 301);
 })->name('pages.legacy');

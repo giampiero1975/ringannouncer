@@ -209,6 +209,18 @@
             margin-top: 0;
         }
 
+        .contact-page {
+            padding: 112px 0 56px;
+        }
+
+        .contact-layout,
+        .contact-form__row {
+            grid-template-columns: 1fr;
+        }
+
+        .contact-card {
+            padding: 22px;
+        }
         .story-content__bar {
             display: grid;
             justify-items: start;
@@ -247,6 +259,71 @@
         </div>
     </div>
     <div class="story-footer-separator" aria-hidden="true"></div>
+</section>
+@elseif($page->key === 'contatti')
+<section class="contact-page" id="top">
+    <div class="wrap contact-layout">
+        <div class="contact-intro">
+            <div class="eyebrow">Contatti</div>
+            <h1>Scrivi <span>a Valerio</span></h1>
+            <div class="story-hero__rule"></div>
+            <div class="page-content__body">
+                {!! $page->content !!}
+            </div>
+            <div class="contact-details">
+                <div>
+                    <span>Email</span>
+                    <a href="mailto:{{ config('mail.contact_to') ?: config('mail.from.address') }}">{{ config('mail.contact_to') ?: config('mail.from.address') ?: 'info@ringannouncer.it' }}</a>
+                </div>
+                <div>
+                    <span>Disponibilità</span>
+                    <strong>Eventi sportivi, collaborazioni, serate e presentazioni.</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-card">
+            @if(session('contact_status'))
+                <p class="contact-card__status">{{ session('contact_status') }}</p>
+            @endif
+
+            <form class="contact-form" method="post" action="{{ route('contact.store') }}">
+                @csrf
+                <label class="contact-form__hidden">Azienda
+                    <input type="text" name="company" value="" tabindex="-1" autocomplete="off">
+                </label>
+
+                <div class="contact-form__row">
+                    <label>Nome
+                        <input type="text" name="name" value="{{ old('name') }}" required autocomplete="name">
+                        @error('name')<span class="contact-form__error">{{ $message }}</span>@enderror
+                    </label>
+                    <label>Email
+                        <input type="email" name="email" value="{{ old('email') }}" required autocomplete="email">
+                        @error('email')<span class="contact-form__error">{{ $message }}</span>@enderror
+                    </label>
+                </div>
+
+                <div class="contact-form__row">
+                    <label>Telefono
+                        <input type="text" name="phone" value="{{ old('phone') }}" autocomplete="tel">
+                        @error('phone')<span class="contact-form__error">{{ $message }}</span>@enderror
+                    </label>
+                    <label>Tipo evento
+                        <input type="text" name="event_type" value="{{ old('event_type') }}" placeholder="Boxe, gala, speakeraggio...">
+                        @error('event_type')<span class="contact-form__error">{{ $message }}</span>@enderror
+                    </label>
+                </div>
+
+                <label>Messaggio
+                    <textarea name="message" required>{{ old('message') }}</textarea>
+                    @error('message')<span class="contact-form__error">{{ $message }}</span>@enderror
+                </label>
+
+                <button class="btn" type="submit">Invia richiesta</button>
+            </form>
+        </div>
+    </div>
 </section>
 @else
 <section class="page-content" id="top">

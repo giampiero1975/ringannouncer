@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Galleries\RelationManagers;
 
+use App\Models\Media;
 use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
@@ -15,6 +16,7 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Storage;
 
 class MediaRelationManager extends RelationManager
 {
@@ -59,7 +61,39 @@ class MediaRelationManager extends RelationManager
             ])
             ->recordActions([
                 EditAction::make(),
-                DeleteAction::make(),
+                DeleteAction::make()
+                    ->label('Elimina foto')
+                    ->requiresConfirmation()
+                    ->modalDescription('La foto verrà eliminata dalla galleria e dal database. Anche il file sul server verrà cancellato se non è utilizzato da altre foto.')
+                    ->after(function (Media $record): void {
+                        $path = $record->file_path;
+
+                        if (! is_string($path) || ! str_starts_with($path, 'galleries/')) {
+                            return;
+                        }
+
+                        if (str_contains($path, '..') || str_contains($path, '\\')) {
+                            return;
+                        }
+
+                        // Non cancellare file condivisi con altre fotografie.
+                        if (Media::query()->where('file_path', $path)->exists()) {
+                            return;
+                        }
+
+                        $disk = Storage::disk('public');
+                        $disk->delete($path);
+
+                        // Elimina l'eventuale anteprima generata, se non condivisa.
+                        $relativePath = substr($path, strlen('galleries/'));
+                        $directory = trim(str_replace('\\', '/', dirname($relativePath)), './');
+                        $filename = pathinfo($relativePath, PATHINFO_FILENAME) . '.webp';
+                        $thumbnailPath = 'galleries/thumbs/' . ($directory !== '' ? $directory . '/' : '') . $filename;
+
+                        if ($thumbnailPath !== $path && ! Media::query()->where('file_path', $thumbnailPath)->exists()) {
+                            $disk->delete($thumbnailPath);
+                        }
+                    }),
             ])
             ->defaultSort('sort_order');
     }

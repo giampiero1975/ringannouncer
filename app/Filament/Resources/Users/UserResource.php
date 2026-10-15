@@ -22,6 +22,11 @@ class UserResource extends Resource
     protected static ?string $pluralModelLabel = 'utenti';
     protected static string|UnitEnum|null $navigationGroup = 'Amministrazione';
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        return static::canViewAny();
+    }
+
     public static function canViewAny(): bool
     {
         return auth()->user()?->role === 'technical_admin';

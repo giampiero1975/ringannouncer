@@ -12,7 +12,7 @@ class User extends Authenticatable implements FilamentUser
 {
     use HasFactory, Notifiable;
 
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['name', 'email', 'password', 'role'];
 
     protected $hidden = ['password', 'remember_token'];
 
@@ -26,6 +26,6 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return $this->email === 'giampiero.digregorio@gmail.com';
+        return $this->role === 'technical_admin' || $this->role === 'content_manager' || $this->email === 'giampiero.digregorio@gmail.com';
     }
 }

@@ -54,7 +54,6 @@ class MediaRelationManager extends RelationManager
                 TextColumn::make('alt_text')->label('ALT')->limit(40)->placeholder('Non impostato')->toggleable(),
                 TextColumn::make('sort_order')->label('Ordine')->sortable()->toggleable(),
                 IconColumn::make('show_on_home')->label('Home')->boolean()->toggleable(),
-                TextColumn::make('legacy_file_id')->label('Drupal')->toggleable(isToggledHiddenByDefault: true),
             ])
             ->headerActions([
                 CreateAction::make()->label('Aggiungi foto'),

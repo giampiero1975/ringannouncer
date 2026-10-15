@@ -11,6 +11,25 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
 
+Route::get('/sitemap.xml', function () {
+    $base = 'https://www.ringannouncer.it';
+    $paths = collect(['/', '/eventi', '/curiosita', '/gallery']);
+
+    $paths = $paths->merge(
+        Page::query()->published()->where('key', '!=', 'home')->pluck('key')->map(fn ($key) => '/'.$key)
+    )->merge(
+        Gallery::query()->where('is_published', true)->pluck('slug')->map(fn ($slug) => '/gallery/'.$slug)
+    )->unique();
+
+    $xml = '<?xml version="1.0" encoding="UTF-8"?>'
+        .'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+        .$paths->map(fn ($path) => '<url><loc>'.e($base.$path).'</loc></url>')->implode('')
+        .'</urlset>';
+
+    return response($xml, 200)->header('Content-Type', 'application/xml; charset=UTF-8');
+})->name('sitemap');
+
+
 Route::get('/eventi', function () {
     return view('events.index', [
         'events' => Event::query()

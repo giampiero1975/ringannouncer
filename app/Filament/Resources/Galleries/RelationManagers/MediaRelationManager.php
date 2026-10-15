@@ -51,9 +51,9 @@ class MediaRelationManager extends RelationManager
             ->columns([
                 ImageColumn::make('file_path')->label('Foto')->disk('public')->square(),
                 TextColumn::make('title')->label('Titolo')->searchable()->placeholder('Senza titolo'),
-                TextColumn::make('alt_text')->label('ALT')->limit(40)->placeholder('Non impostato'),
-                TextColumn::make('sort_order')->label('Ordine')->sortable(),
-                IconColumn::make('show_on_home')->label('Home')->boolean(),
+                TextColumn::make('alt_text')->label('ALT')->limit(40)->placeholder('Non impostato')->toggleable(),
+                TextColumn::make('sort_order')->label('Ordine')->sortable()->toggleable(),
+                IconColumn::make('show_on_home')->label('Home')->boolean()->toggleable(),
                 TextColumn::make('legacy_file_id')->label('Drupal')->toggleable(isToggledHiddenByDefault: true),
             ])
             ->headerActions([
